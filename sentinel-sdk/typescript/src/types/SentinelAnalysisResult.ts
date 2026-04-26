@@ -20,8 +20,6 @@ export interface SentinelAnalysisResponse {
   score: number;
   risk: RiskLevel;
   escalate: boolean;
-  stage: Stage;
-  ux_recommendation: UXRecommendation;
 
   layers: {
     normalizer: {
@@ -50,9 +48,13 @@ export interface SentinelAnalysisResponse {
   uniqueCategories: string[];
 }
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  status_code: number;
-  details?: string;
+export interface ApiAnalysisResponse {
+  risk: RiskLevel;
+  ux_recommendation: UXRecommendation;
+  stage: Stage;
+  confidence: number;
+  summary: string;
+  false_positive: boolean;
+  messages_analyzed: number;
+  current_message: string;
 }
