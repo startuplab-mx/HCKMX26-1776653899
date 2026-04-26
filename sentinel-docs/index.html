@@ -26,7 +26,7 @@
     <div class="topbar-divider"></div>
     <span class="topbar-pkg">@sentinel-sdk</span>
     <div class="topbar-right">
-      <span class="badge-version">v1.0.0</span>
+      <span class="badge-version">v1.0.3</span>
       <button class="btn-icon" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
         <svg id="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -43,12 +43,13 @@
     <a class="sidebar-link active" href="#introduction" onclick="setActive(this)">Introducción</a>
     <a class="sidebar-link" href="#installation" onclick="setActive(this)">Instalación</a>
     <a class="sidebar-link" href="#quickstart" onclick="setActive(this)">Primeros Pasos</a>
+    <a class="sidebar-link" href="#api-keys" onclick="setActive(this)">Generar API Key</a>
 
     <div class="sidebar-section-label">API</div>
     <a class="sidebar-link" href="#sentinel-class" onclick="setActive(this)">Sentinel</a>
     <a class="sidebar-link sub" href="#constructor" onclick="setActive(this)">constructor</a>
     <a class="sidebar-link sub" href="#analyze" onclick="setActive(this)">analyze()</a>
-    <a class="sidebar-link sub" href="#analyzeMessage" onclick="setActive(this)">analyzeMessage()</a>
+    <a class="sidebar-link sub" href="#localAnalyze" onclick="setActive(this)">localAnalyze()</a>
 
     <div class="sidebar-section-label">Tipos</div>
     <a class="sidebar-link" href="#sentinelresult" onclick="setActive(this)">SentinelResult</a>
@@ -80,7 +81,7 @@
       <div class="page-header">
         <span class="breadcrumb">Docs <span>/ Introducción</span></span>
         <h1>Sentinel SDK</h1>
-        <p class="lead">La infraestructura estándar para la seguridad digital de menores en México. Un paquete TypeScript que permite a cualquier plataforma de mensajería detectar en tiempo real patrones de grooming y reclutamiento por crimen organizado, sin exponer datos personales a terceros.</p>
+        <p class="lead">La infraestructura estándar para la seguridad digital de menores en México. Un paquete TypeScript que permite a cualquier plataforma de mensajería detectar en tiempo real patrones de reclutamiento por crimen organizado, sin exponer datos personales a terceros.</p>
         <div class="callout warn">
           <span class="callout-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:oklch(60% 0.18 75)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
           <span>
@@ -95,10 +96,6 @@
       <div class="code-block">
         <div class="code-block-header"><span>npm</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
         <pre><code>npm install @sentinel-sdk/typescript</code></pre>
-      </div>
-      <div class="code-block">
-        <div class="code-block-header"><span>pnpm</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre><code>pnpm add @sentinel-sdk/typescript</code></pre>
       </div>
       <h3>Requerimientos</h3>
       <div class="table-wrap">
@@ -142,20 +139,25 @@
       </div>
 
       <h3>Análisis Local (Sin conexión)</h3>
-      <p>Análisis local instantáneo sin llamadas a la API. Útil para prefiltrado o entornos sin conexión.</p>
-      <div class="code-block">
-        <div class="code-block-header"><span>index.ts</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-        <pre><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> sentinel<span class="pu">.</span><span class="fn">analyzeMessage</span><span class="pu">(</span>
-  <span class="str">"te mando lana si me ayudas con un jale"</span>
-<span class="pu">);</span>
+<p>Análisis local instantáneo sin llamadas a la API. Útil para prefiltrado o entornos sin conexión.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span>index.ts</span>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </div>
+  <pre><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> sentinel<span class="pu">.</span><span class="fn">localAnalyze</span><span class="pu">([</span>
+  <span class="pu">{</span> text<span class="pu">:</span> <span class="str">"te mando lana si me ayudas con un jale"</span> <span class="pu">},</span>
+  <span class="pu">{</span> text<span class="pu">:</span> <span class="str">"trato de 300 pesos por noche"</span> <span class="pu">},</span>
+  <span class="pu">{</span> text<span class="pu">:</span> <span class="str">"es solo un jale, nomas es entregar un pakete"</span> <span class="pu">}</span>
+<span class="pu">]);</span>
 
 <span class="kw">if</span> <span class="pu">(!</span>error<span class="pu">) {</span>
-  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>score<span class="pu">);</span>        <span class="cm">// numeric score</span>
-  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>risk<span class="pu">);</span>         <span class="cm">// "MEDIUM"</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>score<span class="pu">);</span>        <span class="cm">// numeric score</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>risk<span class="pu">);</span>         <span class="cm">// "MEDIUM"</span>
   console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>velocityFlag<span class="pu">);</span> <span class="cm">// false</span>
   console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>layers<span class="pu">.</span>v3<span class="pu">.</span>terms<span class="pu">);</span> <span class="cm">// ["REC-005"]</span>
 <span class="pu">}</span></code></pre>
-      </div>
+</div>
 
       <h3>Manejo de recomendaciones UX</h3>
       <div class="code-block">
@@ -171,6 +173,36 @@
   <span class="kw">case</span> <span class="str">"HARD_BLOCK"</span><span class="pu">:</span>      <span class="fn">blockAndReport</span><span class="pu">(</span>sessionId<span class="pu">);</span> <span class="kw">break</span><span class="pu">;</span>
 <span class="pu">}</span></code></pre>
       </div>
+    </section>
+
+    <!-- API KEYS -->
+    <section class="doc-section" id="api-keys">
+      <h2>Generar API Key</h2>
+      <p>Para utilizar las capacidades completas de análisis y escalación de Sentinel, necesitas autenticar el SDK utilizando una API Key.</p>
+      
+      <div class="callout info">
+        <span class="callout-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:oklch(55% 0.18 220)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+        <span><strong>Fase Beta Gratuita:</strong> Sentinel se encuentra actualmente en fase Early Access. La generación y uso de API Keys es completamente <strong>gratuita</strong> para propósitos de desarrollo, evaluación y proyectos sin fines de lucro.</span>
+      </div>
+
+      <h3>¿Cómo obtener tu API Key?</h3>
+      <p>Genera una clave de acceso instantánea para tus pruebas de desarrollo. Esta clave de prueba no requiere inicio de sesión ni validación de correo.</p>
+      
+      <div class="api-key-generator" style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+          <input type="text" id="api-key-project" placeholder="Nombre de tu proyecto (ej. my-app)" style="flex: 1; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--fg); font-family: inherit; font-size: 14px; outline: none;">
+          <button id="generate-key-btn" style="padding: 10px 20px; background: var(--fg); color: var(--bg); border: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; font-size: 14px;">Generar Key</button>
+        </div>
+        <div id="api-key-result-container" style="display: none; padding: 15px; background: var(--bg); border-radius: 6px; border: 1px dashed var(--border);">
+          <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--fg-subtle);">Tu API Key de desarrollo (lista para usarse en tu archivo .env):</p>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <code id="api-key-result" style="flex: 1; padding: 10px; background: var(--bg-surface); border-radius: 4px; font-family: 'Geist Mono', monospace; font-size: 14px; user-select: all; overflow-x: auto;"></code>
+            <button onclick="copyGeneratedKey(this)" style="padding: 8px 15px; background: transparent; border: 1px solid var(--border); color: var(--fg); border-radius: 4px; cursor: pointer; font-size: 13px; transition: all 0.2s;">Copiar</button>
+          </div>
+        </div>
+      </div>
+      
+      <p style="margin-top: 15px; font-size: 14px; color: var(--fg-subtle);"><em>Nota: Durante la fase beta gratuita, se aplican límites de tasa (rate limits) predeterminados para asegurar la disponibilidad del servicio. Si requieres mayor capacidad para tu plataforma, contacta a nuestro equipo de soporte.</em></p>
     </section>
 
     <!-- SENTINEL CLASS -->
@@ -191,7 +223,7 @@
         <table>
           <thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead>
           <tbody>
-            <tr><td class="prop">config</td><td><code>SentinelConfig</code></td><td>Configuration object. Currently requires only <code>apiKey</code>.</td></tr>
+            <tr><td class="prop">config</td><td><code>SentinelConfig</code></td><td>Objeto de configuración. Actualmente requiere solo <code>apiKey</code>.</td></tr>
           </tbody>
         </table>
       </div>
@@ -218,25 +250,38 @@
       </div>
       <p><strong>Retorna</strong> — <code>Promise&lt;SentinelResult&lt;ApiAnalysisResponse&gt;&gt;</code></p>
 
-      <h3 id="analyzeMessage">analyzeMessage()</h3>
-      <p>Análisis local de un mensaje. Sin llamadas de red, sin contexto de sesión. Retorna el resultado del motor. Síncrono.</p>
+      <h3 id="localAnalyze">localAnalyze()</h3>
+      <p>Análisis local de una lista de mensajes. Sin llamadas de red, sin contexto de sesión. Retorna el resultado del motor. Síncrono.</p>
       <div class="code-block">
         <div class="code-block-header"><span>Signature</span></div>
-        <pre><code><span class="fn">analyzeMessage</span><span class="pu">(</span>text<span class="pu">:</span> <span class="ty">string</span><span class="pu">):</span> <span class="ty">SentinelResult</span><span class="pu">&lt;</span><span class="ty">SentinelAnalysisResponse</span><span class="pu">&gt;</span></code></pre>
+        <pre><code><span class="fn">localAnalyze</span><span class="pu">(</span>text<span class="pu">:</span> <span class="ty">string</span><span class="pu">):</span> <span class="ty">SentinelResult</span><span class="pu">&lt;</span><span class="ty">SentinelAnalysisResponse</span><span class="pu">&gt;</span></code></pre>
       </div>
       <div class="table-wrap">
-        <table>
-          <thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead>
-          <tbody>
-            <tr><td class="prop">text</td><td><code>string</code></td><td class="req">required</td><td>Texto del mensaje a analizar.</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Parámetro</th>
+        <th>Tipo</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="prop">messages</td>
+        <td><code>Message[]</code></td>
+        <td>
+          <span class="req">required</span> 
+          Lista de mensajes a analizar. Si timestamps no son proporcionados, serán generados automáticamente.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
       <p><strong>Retorna</strong> — <code>SentinelResult&lt;SentinelAnalysisResponse&gt;</code></p>
 
       <div class="callout info">
         <span class="callout-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:oklch(55% 0.18 220)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
-        <span><code>analyzeMessage()</code> es síncrono y retorna <code>SentinelAnalysisResponse</code> (el resultado del motor con desglose de capas), mientras que <code>analyze()</code> es asíncrono y retorna <code>ApiAnalysisResponse</code> (enriquecido con etapa, confianza y recomendación UX de la API).</span>
+        <span><code>localAnalyze()</code> es síncrono y retorna <code>SentinelAnalysisResponse</code> (el resultado del motor con desglose de capas), mientras que <code>analyze()</code> es asíncrono y retorna <code>ApiAnalysisResponse</code> (enriquecido con etapa, confianza y recomendación UX de la API).</span>
       </div>
     </section>
 
@@ -321,7 +366,7 @@
           <thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead>
           <tbody>
             <tr><td class="prop">ux_recommendation</td><td><code>UXRecommendation</code></td><td>La acción de UI que tu aplicación debe tomar.</td></tr>
-            <tr><td class="prop">stage</td><td><code>Stage</code></td><td>Etapa degrooming detectada de la conversación.</td></tr>
+            <tr><td class="prop">stage</td><td><code>Stage</code></td><td>Etapa de reclutamiento detectada de la conversación.</td></tr>
             <tr><td class="prop">confidence</td><td><code>number</code></td><td>Score de confianza 0–1.</td></tr>
             <tr><td class="prop">summary</td><td><code>string</code></td><td>Descripción legible por humanos del patrón de riesgo detectado.</td></tr>
             <tr><td class="prop">false_positive</td><td><code>boolean</code></td><td>Si la API determinó que fue un falso positivo.</td></tr>
@@ -334,7 +379,7 @@
 
     <section class="doc-section" id="sentinelanalysisresponse">
       <h2>SentinelAnalysisResponse</h2>
-      <p>Retornado por <code>analyzeMessage()</code>. El resultado crudo del motor con el desglose completo por capa para auditoría y depuración.</p>
+      <p>Retornado por <code>localAnalyze()</code>. El resultado crudo del motor con el desglose completo por capa para auditoría y depuración.</p>
       <div class="code-block">
         <div class="code-block-header"><span>SentinelAnalysisResult.ts</span></div>
         <pre><code><span class="kw">interface</span> <span class="ty">SentinelAnalysisResponse</span> <span class="pu">{</span>
@@ -521,7 +566,7 @@
           <thead><tr><th>Mecanismo</th><th>Descripción</th></tr></thead>
           <tbody>
             <tr><td><strong>Características abstractas</strong></td><td>Características basadas en léxico, opcionalmente negadas. Ej. <code>ambiguous_opportunity</code> se activa cuando coincide un léxico pero no hay contexto de seguridad presente.</td></tr>
-            <tr><td><strong>Señales explícitas</strong></td><td>Coincidencia de patrones de alta precisión para frases de grooming específicas. Mayor peso que las características abstractas.</td></tr>
+            <tr><td><strong>Señales explícitas</strong></td><td>Coincidencia de patrones de alta precisión para frases de reclutamiento específicas. Mayor peso que las características abstractas.</td></tr>
             <tr><td><strong>Reglas de combinación (CR-*)</strong></td><td>Puntaje de bonificación cuando múltiples características abstractas co-ocurren en la misma sesión.</td></tr>
           </tbody>
         </table>
@@ -616,7 +661,7 @@
               <td><span class="ux-badge">WARNING_OVERLAY</span></td>
               <td><span class="risk-badge risk-MEDIUM"><span class="risk-dot dot-MEDIUM"></span>MEDIUM</span></td>
               <td>Medio</td>
-              <td>Modal que se puede cerrar. Incluya una opción "Estoy bien". Registre todas las dismissals.</td>
+              <td>Modal que se puede cerrar. Incluya una opción "Estoy bien". Registre todas las omisiones.</td>
             </tr>
             <tr>
               <td><span class="ux-badge">SOFT_BLOCK</span></td>

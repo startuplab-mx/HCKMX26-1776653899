@@ -45,3 +45,43 @@ content.addEventListener("scroll", () => {
       link.classList.add("active");
   });
 });
+
+// API Key Generator Logic
+const generateKeyBtn = document.getElementById("generate-key-btn");
+if (generateKeyBtn) {
+  generateKeyBtn.addEventListener("click", () => {
+    const projectInput = document.getElementById("api-key-project").value.trim() || "dev";
+    const resultContainer = document.getElementById("api-key-result-container");
+    const resultEl = document.getElementById("api-key-result");
+    
+    generateKeyBtn.textContent = "Generando...";
+    generateKeyBtn.style.opacity = "0.7";
+    
+    // Simulate network delay for effect
+    setTimeout(() => {
+      const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      const generatedKey = `sk_test_${projectInput.toLowerCase().replace(/[^a-z0-9]/g, '')}_${randomString}`;
+      
+      resultEl.textContent = generatedKey;
+      resultContainer.style.display = "block";
+      
+      generateKeyBtn.textContent = "Generar Key";
+      generateKeyBtn.style.opacity = "1";
+    }, 600);
+  });
+}
+
+function copyGeneratedKey(btn) {
+  const code = document.getElementById("api-key-result").textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const originalText = btn.textContent;
+    btn.textContent = "¡Copiado!";
+    btn.style.borderColor = "oklch(60% 0.18 75)";
+    btn.style.color = "oklch(60% 0.18 75)";
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.borderColor = "var(--border)";
+      btn.style.color = "var(--fg)";
+    }, 2000);
+  });
+}
