@@ -317,9 +317,9 @@ La API está desplegada en **Railway** con Python 3.13.
 
 ---
 
-## Demo
+## Video
 
-> Integración de prueba con **feed-games** — disponible próximamente.
+- URL: *(https://drive.google.com/drive/folders/1h1aBiVT0Sz6JI3MBJMSC1HxSwvDVfUzV?usp=sharing)
 
 ---
 
