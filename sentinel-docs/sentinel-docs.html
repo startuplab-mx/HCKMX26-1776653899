@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sentinel SDK — Documentation</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="shortcut icon" href="/public/icon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="layout">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a class="topbar-logo" href="#">
+      <div class="topbar-logo-mark">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M6 1L10.5 3.5V8.5L6 11L1.5 8.5V3.5L6 1Z" fill="currentColor"/>
+        </svg>
+      </div>
+      Sentinel
+    </a>
+    <div class="topbar-divider"></div>
+    <span class="topbar-pkg">@sentinel-sdk</span>
+    <div class="topbar-right">
+      <span class="badge-version">v1.0.0</span>
+      <button class="btn-icon" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+        <svg id="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg id="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="https://github.com/WatterAH/sentinel-sdk" target="_blank" class="btn-icon" title="GitHub" aria-label="GitHub">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.021C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-section-label">Guía Rápida</div>
+    <a class="sidebar-link active" href="#introduction" onclick="setActive(this)">Introducción</a>
+    <a class="sidebar-link" href="#installation" onclick="setActive(this)">Instalación</a>
+    <a class="sidebar-link" href="#quickstart" onclick="setActive(this)">Primeros Pasos</a>
+
+    <div class="sidebar-section-label">API</div>
+    <a class="sidebar-link" href="#sentinel-class" onclick="setActive(this)">Sentinel</a>
+    <a class="sidebar-link sub" href="#constructor" onclick="setActive(this)">constructor</a>
+    <a class="sidebar-link sub" href="#analyze" onclick="setActive(this)">analyze()</a>
+    <a class="sidebar-link sub" href="#analyzeMessage" onclick="setActive(this)">analyzeMessage()</a>
+
+    <div class="sidebar-section-label">Tipos</div>
+    <a class="sidebar-link" href="#sentinelresult" onclick="setActive(this)">SentinelResult</a>
+    <a class="sidebar-link" href="#sentinelconfig" onclick="setActive(this)">SentinelConfig</a>
+    <a class="sidebar-link" href="#apianalysisresponse" onclick="setActive(this)">ApiAnalysisResponse</a>
+    <a class="sidebar-link" href="#sentinelanalysisresponse" onclick="setActive(this)">SentinelAnalysisResponse</a>
+    <a class="sidebar-link" href="#sentinelerror" onclick="setActive(this)">SentinelError</a>
+    <a class="sidebar-link" href="#other-types" onclick="setActive(this)">Otros Tipos</a>
+
+    <div class="sidebar-section-label">Motor</div>
+    <a class="sidebar-link" href="#architecture" onclick="setActive(this)">Arquitectura</a>
+    <a class="sidebar-link sub" href="#layer-normalizer" onclick="setActive(this)">NormalizerLayer</a>
+    <a class="sidebar-link sub" href="#layer-v3" onclick="setActive(this)">V3Layer</a>
+    <a class="sidebar-link sub" href="#layer-v4" onclick="setActive(this)">V4Layer</a>
+    <a class="sidebar-link sub" href="#velocity-detector" onclick="setActive(this)">VelocityDetector</a>
+
+    <div class="sidebar-section-label">Conceptos</div>
+    <a class="sidebar-link" href="#scoring" onclick="setActive(this)">Puntuación & Riesgo</a>
+    <a class="sidebar-link" href="#stages-detail" onclick="setActive(this)">Etapas de Reclutamiento</a>
+    <a class="sidebar-link" href="#ux-recommendations" onclick="setActive(this)">Recomendaciones UX</a>
+    <a class="sidebar-link" href="#error-handling" onclick="setActive(this)">Manejo de Errores</a>
+  </nav>
+
+  <!-- Content -->
+  <main class="content" id="content">
+
+    <!-- INTRODUCTION -->
+    <section class="doc-section" id="introduction">
+      <div class="page-header">
+        <span class="breadcrumb">Docs <span>/ Introducción</span></span>
+        <h1>Sentinel SDK</h1>
+        <p class="lead">La infraestructura estándar para la seguridad digital de menores en México. Un paquete TypeScript que permite a cualquier plataforma de mensajería detectar en tiempo real patrones de grooming y reclutamiento por crimen organizado, sin exponer datos personales a terceros.</p>
+        <div class="callout warn">
+          <span class="callout-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:oklch(60% 0.18 75)"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <span>
+            Este SDK está diseñado para la seguridad infantil en México. Los resultados deben complementar, no reemplazar, la revisión humana y los protocolos legales.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALLATION -->
+    <section class="doc-section" id="installation">
+      <h2>Instalación</h2>
+      <div class="code-block">
+        <div class="code-block-header"><span>npm</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><code>npm install @sentinel-sdk/typescript</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header"><span>pnpm</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><code>pnpm add @sentinel-sdk/typescript</code></pre>
+      </div>
+      <h3>Requerimientos</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Requerimiento</th><th>Versión</th></tr></thead>
+          <tbody>
+            <tr><td>TypeScript</td><td><code>&gt;= 5.0</code></td></tr>
+            <tr><td>Node.js</td><td><code>&gt;= 18</code></td></tr>
+            <tr><td>Módulo</td><td><code>ESM</code> y <code>CJS</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUICKSTART -->
+    <section class="doc-section" id="quickstart">
+      <h2>Primeros Pasos</h2>
+      <p>El SDK utiliza el <strong>patrón de resultados</strong> — nunca lanza excepciones. Siempre desestructura <code>{ data, error }</code> y verifica <code>error</code> primero.</p>
+
+      <h3>Con contexto de sesión (recomendado)</h3>
+      <p>Sincroniza el mensaje con el servidor, recupera el historial completo de la sesión y lo analiza a través del motor multicapa.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>index.ts</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><code><span class="kw">import</span> { <span class="ty">Sentinel</span> } <span class="kw">from</span> <span class="str">"@sentinel-sdk/typescript"</span><span class="pu">;</span>
+
+<span class="kw">const</span> sentinel <span class="pu">=</span> <span class="kw">new</span> <span class="ty">Sentinel</span><span class="pu">({</span> apiKey<span class="pu">:</span> process<span class="pu">.</span>env<span class="pu">.</span><span class="ty">SENTINEL_API_KEY</span><span class="pu">! });</span>
+
+<span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> <span class="kw">await</span> sentinel<span class="pu">.</span><span class="fn">analyze</span><span class="pu">(</span>
+  <span class="str">"oye quieres ganar lana haciendo unos mandados"</span><span class="pu">,</span>
+  <span class="str">"session-uuid"</span><span class="pu">,</span>
+  <span class="str">"user-uuid"</span>
+<span class="pu">);</span>
+
+<span class="kw">if</span> <span class="pu">(</span>error<span class="pu">) {</span>
+  console<span class="pu">.</span><span class="fn">error</span><span class="pu">(</span>error<span class="pu">.</span>code<span class="pu">,</span> error<span class="pu">.</span>message<span class="pu">);</span>
+<span class="pu">} else {</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>risk<span class="pu">);</span>               <span class="cm">// "HIGH"</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>stage<span class="pu">);</span>              <span class="cm">// "CAPTACION"</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>ux_recommendation<span class="pu">);</span>  <span class="cm">// "SOFT_BLOCK"</span>
+<span class="pu">}</span></code></pre>
+      </div>
+
+      <h3>Análisis Local (Sin conexión)</h3>
+      <p>Análisis local instantáneo sin llamadas a la API. Útil para prefiltrado o entornos sin conexión.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>index.ts</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> sentinel<span class="pu">.</span><span class="fn">analyzeMessage</span><span class="pu">(</span>
+  <span class="str">"te mando lana si me ayudas con un jale"</span>
+<span class="pu">);</span>
+
+<span class="kw">if</span> <span class="pu">(!</span>error<span class="pu">) {</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>score<span class="pu">);</span>        <span class="cm">// numeric score</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>risk<span class="pu">);</span>         <span class="cm">// "MEDIUM"</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>velocityFlag<span class="pu">);</span> <span class="cm">// false</span>
+  console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>layers<span class="pu">.</span>v3<span class="pu">.</span>terms<span class="pu">);</span> <span class="cm">// ["REC-005"]</span>
+<span class="pu">}</span></code></pre>
+      </div>
+
+      <h3>Manejo de recomendaciones UX</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>index.ts</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> <span class="kw">await</span> sentinel<span class="pu">.</span><span class="fn">analyze</span><span class="pu">(</span>text<span class="pu">,</span> sessionId<span class="pu">,</span> userId<span class="pu">);</span>
+<span class="kw">if</span> <span class="pu">(</span>error<span class="pu">)</span> <span class="kw">return</span><span class="pu">;</span>
+
+<span class="kw">switch</span> <span class="pu">(</span>data<span class="pu">.</span>ux_recommendation<span class="pu">) {</span>
+  <span class="kw">case</span> <span class="str">"NONE"</span><span class="pu">:</span>            <span class="kw">break</span><span class="pu">;</span>
+  <span class="kw">case</span> <span class="str">"SOFT_NUDGE"</span><span class="pu">:</span>      <span class="fn">showSafetyTip</span><span class="pu">();</span> <span class="kw">break</span><span class="pu">;</span>
+  <span class="kw">case</span> <span class="str">"WARNING_OVERLAY"</span><span class="pu">:</span> <span class="fn">showWarning</span><span class="pu">(</span>data<span class="pu">.</span>stage<span class="pu">);</span> <span class="kw">break</span><span class="pu">;</span>
+  <span class="kw">case</span> <span class="str">"SOFT_BLOCK"</span><span class="pu">:</span>      <span class="fn">pauseConversation</span><span class="pu">();</span> <span class="kw">break</span><span class="pu">;</span>
+  <span class="kw">case</span> <span class="str">"HARD_BLOCK"</span><span class="pu">:</span>      <span class="fn">blockAndReport</span><span class="pu">(</span>sessionId<span class="pu">);</span> <span class="kw">break</span><span class="pu">;</span>
+<span class="pu">}</span></code></pre>
+      </div>
+    </section>
+
+    <!-- SENTINEL CLASS -->
+    <section class="doc-section" id="sentinel-class">
+      <h2>Sentinel</h2>
+      <p>La clase principal exportada por el SDK. Orquesta el pipeline del motor local, la sincronización de sesiones API y la escalada a la API de Sentinel.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>Import</span></div>
+        <pre><code><span class="kw">import</span> { <span class="ty">Sentinel</span> } <span class="kw">from</span> <span class="str">"@sentinel-sdk/typescript"</span><span class="pu">;</span></code></pre>
+      </div>
+
+      <h3 id="constructor">constructor</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>Signature</span></div>
+        <pre><code><span class="kw">new</span> <span class="ty">Sentinel</span><span class="pu">(</span>config<span class="pu">:</span> <span class="ty">SentinelConfig</span><span class="pu">)</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">config</td><td><code>SentinelConfig</code></td><td>Configuration object. Currently requires only <code>apiKey</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="analyze">analyze()</h3>
+      <p>Análisis completo de la sesión. Sincroniza el mensaje con la API, recupera el historial de la sesión, ejecuta el motor de 3 capas y escala a la IA si es necesario.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>Signature</span></div>
+        <pre><code><span class="fn">analyze</span><span class="pu">(</span>
+  text<span class="pu">:</span> <span class="ty">string</span><span class="pu">,</span>
+  sessionId<span class="pu">:</span> <span class="ty">string</span><span class="pu">,</span>
+  userId<span class="pu">:</span> <span class="ty">string</span>
+<span class="pu">):</span> <span class="ty">Promise</span><span class="pu">&lt;</span><span class="ty">SentinelResult</span><span class="pu">&lt;</span><span class="ty">ApiAnalysisResponse</span><span class="pu">&gt;&gt;</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">text</td><td><code>string</code></td><td class="req">required</td><td>El mensaje de texto a analizar.</td></tr>
+            <tr><td class="prop">sessionId</td><td><code>string</code></td><td class="req">required</td><td>Identificador único de la sesión de conversación.</td></tr>
+            <tr><td class="prop">userId</td><td><code>string</code></td><td class="req">required</td><td>Identificador del usuario que está siendo monitoreado.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Retorna</strong> — <code>Promise&lt;SentinelResult&lt;ApiAnalysisResponse&gt;&gt;</code></p>
+
+      <h3 id="analyzeMessage">analyzeMessage()</h3>
+      <p>Análisis local de un mensaje. Sin llamadas de red, sin contexto de sesión. Retorna el resultado del motor. Síncrono.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>Signature</span></div>
+        <pre><code><span class="fn">analyzeMessage</span><span class="pu">(</span>text<span class="pu">:</span> <span class="ty">string</span><span class="pu">):</span> <span class="ty">SentinelResult</span><span class="pu">&lt;</span><span class="ty">SentinelAnalysisResponse</span><span class="pu">&gt;</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">text</td><td><code>string</code></td><td class="req">required</td><td>Texto del mensaje a analizar.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Retorna</strong> — <code>SentinelResult&lt;SentinelAnalysisResponse&gt;</code></p>
+
+      <div class="callout info">
+        <span class="callout-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:oklch(55% 0.18 220)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span>
+        <span><code>analyzeMessage()</code> es síncrono y retorna <code>SentinelAnalysisResponse</code> (el resultado del motor con desglose de capas), mientras que <code>analyze()</code> es asíncrono y retorna <code>ApiAnalysisResponse</code> (enriquecido con etapa, confianza y recomendación UX de la API).</span>
+      </div>
+    </section>
+
+    <!-- TYPES -->
+    <section class="doc-section" id="sentinelresult">
+      <h2>SentinelResult&lt;T&gt;</h2>
+      <p>El tipo de retorno para todos los métodos del SDK. Sigue el patrón Result — el SDK <strong>nunca lanza excepciones</strong>. Siempre verifica <code>error</code> antes de acceder a <code>data</code>.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelResult.ts</span></div>
+        <pre><code><span class="kw">type</span> <span class="ty">SentinelResult</span><span class="pu">&lt;</span><span class="ty">T</span><span class="pu">&gt; =</span>
+  <span class="pu">|</span> <span class="pu">{</span> data<span class="pu">:</span> <span class="ty">T</span><span class="pu">;</span>error<span class="pu">:</span> <span class="ty">null</span> <span class="pu">}</span>   <span class="cm">// success</span>
+  <span class="pu">|</span> <span class="pu">{</span> data<span class="pu">:</span> <span class="ty">null</span><span class="pu">;</span> error<span class="pu">:</span> <span class="ty">SentinelError</span> <span class="pu">};</span> <span class="cm">// failure</span></code></pre>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-card ok">
+          <div class="result-card-title">Success</div>
+          <div class="code-block" style="margin:0">
+            <pre style="padding:12px"><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> result<span class="pu">;</span>
+<span class="kw">if</span> <span class="pu">(!</span>error<span class="pu">) {</span>
+  data<span class="pu">.</span>risk<span class="pu">;</span> <span class="cm">// guaranteed</span>
+<span class="pu">}</span></code></pre>
+          </div>
+        </div>
+        <div class="result-card err">
+          <div class="result-card-title">Failure</div>
+          <div class="code-block" style="margin:0">
+            <pre style="padding:12px"><code><span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> result<span class="pu">;</span>
+<span class="kw">if</span> <span class="pu">(</span>error<span class="pu">) {</span>
+  error<span class="pu">.</span>code<span class="pu">;</span>    <span class="cm">// error code</span>
+  error<span class="pu">.</span>message<span class="pu">;</span> <span class="cm">// description</span>
+<span class="pu">}</span></code></pre>
+          </div>
+        </div>
+      </div>
+
+      <p>Se exportan dos funciones de conveniencia para construir resultados:</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>helpers</span></div>
+        <pre><code><span class="kw">import</span> { ok<span class="pu">,</span> err } <span class="kw">from</span> <span class="str">"@sentinel-sdk/typescript"</span><span class="pu">;</span>
+
+<span class="fn">ok</span><span class="pu">(</span>data<span class="pu">)</span>    <span class="cm">// → { data, error: null }</span>
+<span class="fn">err</span><span class="pu">(</span>error<span class="pu">)</span>  <span class="cm">// → { data: null, error }</span></code></pre>
+      </div>
+    </section>
+
+    <section class="doc-section" id="sentinelconfig">
+      <h2>SentinelConfig</h2>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelConfig.ts</span></div>
+        <pre><code><span class="kw">interface</span> <span class="ty">SentinelConfig</span> <span class="pu">{</span>
+  apiKey<span class="pu">:</span> <span class="ty">string</span><span class="pu">;</span>
+<span class="pu">}</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">apiKey</td><td><code>string</code></td><td>Tu API key de Sentinel. Se utiliza para autenticar las solicitudes de escalamiento.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" id="apianalysisresponse">
+      <h2>ApiAnalysisResponse</h2>
+      <p>Resultado enriquecido retornado por <code>analyze()</code> desde la API de Sentinel cuando ocurre una escalación, o el resultado calculado localmente para sesiones de bajo/alto puntaje.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelAnalysisResult.ts</span></div>
+        <pre><code><span class="kw">interface</span> <span class="ty">ApiAnalysisResponse</span> <span class="pu">{</span>
+  ux_recommendation<span class="pu">:</span> <span class="ty">UXRecommendation</span><span class="pu">;</span>
+  stage<span class="pu">:</span>             <span class="ty">Stage</span><span class="pu">;</span>
+  confidence<span class="pu">:</span>        <span class="ty">number</span><span class="pu">;</span>  <span class="cm">// 0–1</span>
+  summary<span class="pu">:</span>           <span class="ty">string</span><span class="pu">;</span>  <span class="cm">// human-readable explanation</span>
+  false_positive<span class="pu">:</span>    <span class="ty">boolean</span><span class="pu">;</span>
+  messages_analyzed<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span>
+  current_message<span class="pu">:</span>   <span class="ty">string</span><span class="pu">;</span>
+<span class="pu">}</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">ux_recommendation</td><td><code>UXRecommendation</code></td><td>La acción de UI que tu aplicación debe tomar.</td></tr>
+            <tr><td class="prop">stage</td><td><code>Stage</code></td><td>Etapa degrooming detectada de la conversación.</td></tr>
+            <tr><td class="prop">confidence</td><td><code>number</code></td><td>Score de confianza 0–1.</td></tr>
+            <tr><td class="prop">summary</td><td><code>string</code></td><td>Descripción legible por humanos del patrón de riesgo detectado.</td></tr>
+            <tr><td class="prop">false_positive</td><td><code>boolean</code></td><td>Si la API determinó que fue un falso positivo.</td></tr>
+            <tr><td class="prop">messages_analyzed</td><td><code>number</code></td><td>Número de mensajes en la sesión que fueron analizados.</td></tr>
+            <tr><td class="prop">current_message</td><td><code>string</code></td><td>El mensaje que activó el análisis.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" id="sentinelanalysisresponse">
+      <h2>SentinelAnalysisResponse</h2>
+      <p>Retornado por <code>analyzeMessage()</code>. El resultado crudo del motor con el desglose completo por capa para auditoría y depuración.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelAnalysisResult.ts</span></div>
+        <pre><code><span class="kw">interface</span> <span class="ty">SentinelAnalysisResponse</span> <span class="pu">{</span>
+  score<span class="pu">:</span>            <span class="ty">number</span><span class="pu">;</span>
+  risk<span class="pu">:</span>             <span class="ty">RiskLevel</span><span class="pu">;</span>
+  escalate<span class="pu">:</span>         <span class="ty">boolean</span><span class="pu">;</span>
+  velocityFlag<span class="pu">:</span>     <span class="ty">boolean</span><span class="pu">;</span>
+  velocityWindow<span class="pu">:</span>   <span class="ty">number</span><span class="pu">;</span>   <span class="cm">// seconds</span>
+  messagesAnalyzed<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span>
+  uniqueCategories<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span>
+  layers<span class="pu">: {</span>
+    normalizer<span class="pu">: {</span> score<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span> features<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> triggeredRules<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> transformations<span class="pu">:</span> <span class="ty">string</span><span class="pu">[]</span> <span class="pu">};</span>
+    v3<span class="pu">: {</span> score<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span> terms<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> categories<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> triggeredRules<span class="pu">:</span> <span class="ty">string</span><span class="pu">[]</span> <span class="pu">};</span>
+    v4<span class="pu">: {</span> score<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span> features<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> triggeredRules<span class="pu">:</span> <span class="ty">string</span><span class="pu">[];</span> explicitSignals<span class="pu">:</span> <span class="ty">string</span><span class="pu">[]</span> <span class="pu">};</span>
+  <span class="pu">};</span>
+<span class="pu">}</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Propiedad</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td class="prop">score</td><td><code>number</code></td><td>Puntaje acumulado total en todas las capas. Se aplica un bonus de velocidad cuando corresponde.</td></tr>
+            <tr><td class="prop">risk</td><td><code>RiskLevel</code></td><td>Nivel de riesgo resuelto.</td></tr>
+            <tr><td class="prop">escalate</td><td><code>boolean</code></td><td>Si el motor determinó que esta sesión debe ser enviada a la API.</td></tr>
+            <tr><td class="prop">velocityFlag</td><td><code>boolean</code></td><td><code>true</code> si ocurrieron 3 o más detecciones dentro de 5 minutos.</td></tr>
+            <tr><td class="prop">velocityWindow</td><td><code>number</code></td><td>Ventana de tiempo medida en segundos (0 si no se activó la velocidad).</td></tr>
+            <tr><td class="prop">uniqueCategories</td><td><code>string[]</code></td><td>Categorías de riesgo deduplicadas entre las capas V3 y V4.</td></tr>
+            <tr><td class="prop">layers</td><td><code>object</code></td><td>Desglose por capa: normalizador, v3, v4. Cada uno incluye su propio puntaje, ítems coincidentes y reglas activadas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" id="sentinelerror">
+      <h2>SentinelError</h2>
+      <p>La clase de error devuelta en el campo <code>error</code> de un <code>SentinelResult</code>. Hereda el <code>Error</code> nativo.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelError.ts</span></div>
+        <pre><code><span class="kw">type</span> <span class="ty">SentinelErrorCode</span> <span class="pu">=</span>
+  <span class="pu">|</span> <span class="str">"API_ERROR"</span>
+  <span class="pu">|</span> <span class="str">"VALIDATION_ERROR"</span>
+  <span class="pu">|</span> <span class="str">"UNKNOWN_ERROR"</span><span class="pu">;</span>
+
+<span class="kw">class</span> <span class="ty">SentinelError</span> <span class="kw">extends</span> <span class="ty">Error</span> <span class="pu">{</span>
+  code<span class="pu">:</span>        <span class="ty">SentinelErrorCode</span><span class="pu">;</span>
+  statusCode<span class="pu">?:</span> <span class="ty">number</span><span class="pu">;</span>
+  details<span class="pu">?:</span>    <span class="ty">string</span><span class="pu">;</span>
+<span class="pu">}</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Código</th><th>Causa</th></tr></thead>
+          <tbody>
+            <tr><td><span class="err-badge">VALIDATION_ERROR</span></td><td>Faltan parámetros requeridos (<code>text</code>, <code>sessionId</code>, <code>userId</code>).</td></tr>
+            <tr><td><span class="err-badge">API_ERROR</span></td><td>La API de Sentinel devolvió una respuesta que no es 2xx. Se establecerá <code>statusCode</code>.</td></tr>
+            <tr><td><span class="err-badge">UNKNOWN_ERROR</span></td><td>Excepción inesperada detectada internamente.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="doc-section" id="other-types">
+      <h2>Otros Tipos</h2>
+
+      <h3>RiskLevel</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelEngine.ts</span></div>
+        <pre><code><span class="kw">type</span> <span class="ty">RiskLevel</span> <span class="pu">=</span> <span class="str">"LOW"</span> <span class="pu">|</span> <span class="str">"MEDIUM"</span> <span class="pu">|</span> <span class="str">"HIGH"</span> <span class="pu">|</span> <span class="str">"CRITICAL"</span><span class="pu">;</span></code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Valor</th><th>Score</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td><span class="risk-badge risk-LOW"><span class="risk-dot dot-LOW"></span>LOW</span></td><td><code>0–11</code></td><td>Sin riesgo significativo. No se realiza llamada a la API.</td></tr>
+            <tr><td><span class="risk-badge risk-MEDIUM"><span class="risk-dot dot-MEDIUM"></span>MEDIUM</span></td><td><code>12–19</code></td><td>Ambiguo. Activa la escalación a IA.</td></tr>
+            <tr><td><span class="risk-badge risk-HIGH"><span class="risk-dot dot-HIGH"></span>HIGH</span></td><td><code>20–24</code></td><td>Indicadores fuertes o velocidad + regla activa.</td></tr>
+            <tr><td><span class="risk-badge risk-CRITICAL"><span class="risk-dot dot-CRITICAL"></span>CRITICAL</span></td><td><code>≥ 25</code></td><td>Múltiples reglas activadas. Acción inmediata requerida.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Stage</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelAnalysisResult.ts</span></div>
+        <pre><code><span class="kw">type</span> <span class="ty">Stage</span> <span class="pu">=</span>
+  <span class="pu">|</span> <span class="str">"NINGUNA"</span>
+  <span class="pu">|</span> <span class="str">"CAPTACION"</span>
+  <span class="pu">|</span> <span class="str">"INDUCCION/COOPTACION"</span>
+  <span class="pu">|</span> <span class="str">"INCUBACION"</span>
+  <span class="pu">|</span> <span class="str">"UTILIZACION/INSTRUMENTALIZACION"</span><span class="pu">;</span></code></pre>
+      </div>
+
+      <h3>UXRecommendation</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelAnalysisResult.ts</span></div>
+        <pre><code><span class="kw">type</span> <span class="ty">UXRecommendation</span> <span class="pu">=</span>
+  <span class="pu">|</span> <span class="str">"NONE"</span>
+  <span class="pu">|</span> <span class="str">"SOFT_NUDGE"</span>
+  <span class="pu">|</span> <span class="str">"WARNING_OVERLAY"</span>
+  <span class="pu">|</span> <span class="str">"SOFT_BLOCK"</span>
+  <span class="pu">|</span> <span class="str">"HARD_BLOCK"</span><span class="pu">;</span></code></pre>
+      </div>
+
+      <h3>Message</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelEngine.ts</span></div>
+        <pre><code><span class="kw">interface</span> <span class="ty">Message</span> <span class="pu">{</span>
+  text<span class="pu">:</span>      <span class="ty">string</span><span class="pu">;</span>
+  timestamp<span class="pu">:</span> <span class="ty">number</span><span class="pu">;</span> <span class="cm">// Unix ms — required for velocity detection</span>
+<span class="pu">}</span></code></pre>
+      </div>
+
+      <h3>ApiMessage</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span>SentinelEngine.ts</span></div>
+        <pre><code><span class="kw">interface</span> <span class="ty">ApiMessage</span> <span class="pu">{</span>
+  id<span class="pu">:</span>         <span class="ty">string</span><span class="pu">;</span>
+  user_id<span class="pu">:</span>    <span class="ty">string</span><span class="pu">;</span>
+  session_id<span class="pu">:</span> <span class="ty">string</span><span class="pu">;</span>
+  content<span class="pu">:</span>    <span class="ty">string</span><span class="pu">;</span>
+  timestamp<span class="pu">:</span>  <span class="ty">number</span><span class="pu">;</span>
+<span class="pu">}</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ENGINE ARCHITECTURE -->
+    <section class="doc-section" id="architecture">
+      <h2>Arquitectura del Motor</h2>
+      <p>El motor procesa cada conversación a través de un pipeline de 3 capas antes de decidir si escalarla a IA. La mayoría de los mensajes se resuelven localmente en milisegundos, minimizando el costo y la latencia.</p>
+
+      <div class="pipeline">
+        <div class="pipeline-layer">
+          <div class="pipeline-layer-tag layer-n0">LAYER 0</div>
+          <div class="pipeline-layer-title">NormalizerLayer</div>
+          <div class="pipeline-layer-desc">Limpia el texto informal antes de cualquier coincidencia de patrones. Expande emojis, abreviaturas de chat y errores fonéticos. Detecta características N0 y reglas de combinación en texto normalizado.</div>
+          <div class="pipeline-layer-dataset">sentinel_dataset_normalizer_v2.json</div>
+        </div>
+        <div class="pipeline-arrow">↓ texto normalizado</div>
+        <div class="pipeline-layer">
+          <div class="pipeline-layer-tag layer-v3">LAYER 1</div>
+          <div class="pipeline-layer-title">V3Layer</div>
+          <div class="pipeline-layer-desc">Búsqueda de concordancia exacta de términos contra el vocabulario de riesgo documentado. Cada término coincidente aporta su peso al puntaje. Evalúa reglas de escalación multimodales (MCR).</div>
+          <div class="pipeline-layer-dataset">sentinel_dataset_v3.json</div>
+        </div>
+        <div class="pipeline-arrow">↓</div>
+        <div class="pipeline-layer">
+          <div class="pipeline-layer-tag layer-v4">LAYER 2</div>
+          <div class="pipeline-layer-title">V4Layer</div>
+          <div class="pipeline-layer-desc">Detección de características abstractas y señales explícitas de alta precisión. Características basadas en léxico con lógica de negación opcional. Las reglas de combinación (CR-*) recompensan la coocurrencia de señales.</div>
+          <div class="pipeline-layer-dataset">sentinel_dataset_v4.json</div>
+        </div>
+        <div class="pipeline-arrow">↓ todas las coincidencias de todas las capas</div>
+        <div class="pipeline-layer">
+          <div class="pipeline-layer-tag layer-vel">VELOCITY</div>
+          <div class="pipeline-layer-title">VelocityDetector</div>
+          <div class="pipeline-layer-desc">Verifica si ocurrieron 3 o más coincidencias de cualquier capa dentro de una ventana de 5 minutos. Si es así, y si alguna regla está activa, el puntaje total se multiplica por 1.2×.</div>
+        </div>
+      </div>
+
+      <h3 id="layer-normalizer">Capa Normalizadora</h3>
+      <p>Normaliza el texto del mensaje crudo a través de un pipeline de múltiples pasos antes de pasarlo a las capas V3 y V4. Esto permite que el motor detecte lenguaje de reclutamiento ofuscado, deletreado fonéticamente o codificado con emojis.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Paso</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td>1. Expansión de emojis</td><td>Expande emojis y símbolos a texto canónico</td><td><code>📦 → paquete</code></td></tr>
+            <tr><td>2. Remoción de acentos</td><td>Normalización <code>NFD</code>, eliminación de diacríticos</td><td><code>canción → cancion</code></td></tr>
+            <tr><td>3. Colapso de repeticiones</td><td>3 o más caracteres repetidos → 2</td><td><code>jaleeeee → jalee</code></td></tr>
+            <tr><td>4. Mapa de errores tipográficos</td><td>Correcciones comunes de errores tipográficos</td><td><code>pakete → paquete</code></td></tr>
+            <tr><td>5. Abreviaciones</td><td>Abreviaciones de chat → forma canónica</td><td><code>k → que</code></td></tr>
+            <tr><td>6. Reglas fonéticas</td><td>Sustituciones fonéticas basadas en expresiones regulares</td><td><code>q → cu</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="layer-v3">Capa V3</h3>
+      <p>Escanea los mensajes normalizados en busca de términos de coincidencia exacta del vocabulario de riesgo de Sentinel. Cada término tiene un <code>weight</code> y una <code>category</code>. Los términos se deduplican por sesión — un término repetido solo se cuenta una vez.</p>
+      <p>Después de escanear, evalúa las <strong>Reglas Multicategoría (MCR)</strong>: reglas que se activan cuando aparecen combinaciones específicas de categorías de riesgo en la sesión con suficientes mensajes. Dos o más reglas MCR activadas = <code>CRITICAL</code>.</p>
+
+      <h3 id="layer-v4">Capa V4</h3>
+      <p>Detecta señales conductuales abstractas que la capa V3 basada en términos no detectaría. Funciona a través de dos mecanismos:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mecanismo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Características abstractas</strong></td><td>Características basadas en léxico, opcionalmente negadas. Ej. <code>ambiguous_opportunity</code> se activa cuando coincide un léxico pero no hay contexto de seguridad presente.</td></tr>
+            <tr><td><strong>Señales explícitas</strong></td><td>Coincidencia de patrones de alta precisión para frases de grooming específicas. Mayor peso que las características abstractas.</td></tr>
+            <tr><td><strong>Reglas de combinación (CR-*)</strong></td><td>Puntaje de bonificación cuando múltiples características abstractas co-ocurren en la misma sesión.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="velocity-detector">Detector de Velocidad</h3>
+      <p>Toma la lista combinada de coincidencias de las 3 capas y verifica la actividad de ráfaga.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>Default Configuration</span></div>
+        <pre><code><span class="kw">new</span> <span class="ty">VelocityDetector</span><span class="pu">(</span>
+  windowSeconds <span class="pu">=</span> <span class="num">300</span><span class="pu">,</span>  <span class="cm">// 5-minute window</span>
+  minHits       <span class="pu">=</span> <span class="num">3</span>     <span class="cm">// minimum hits to flag</span>
+<span class="pu">)</span></code></pre>
+      </div>
+      <p>Cuando <code>velocityFlag = true</code> y al menos una regla está activa en cualquier capa, el puntaje total se multiplica por <strong>1.2×</strong> y el riesgo se eleva al menos a <code>HIGH</code>.</p>
+    </section>
+
+    <!-- SCORING -->
+    <section class="doc-section" id="scoring">
+      <h2>Puntuación y Riesgo</h2>
+      <p>El puntaje total es la suma de todos los puntajes de las capas (normalizador + V3 + V4), con un bono de velocidad del 20% aplicado cuando sea aplicable. El motor luego resuelve un <code>RiskLevel</code> y determina si escalar.</p>
+
+      <div class="score-ranges">
+        <div class="score-card low">
+          <div class="range">0–11</div>
+          <div class="label">Bajo</div>
+          <div class="desc">Se devuelve inmediatamente. No se realiza llamada a la API.</div>
+        </div>
+        <div class="score-card medium">
+          <div class="range">12–19</div>
+          <div class="label">Medio</div>
+          <div class="desc">Se escala a la API de Sentinel + Groq LLaMA.</div>
+        </div>
+        <div class="score-card high">
+          <div class="range">20–24</div>
+          <div class="label">Alto</div>
+          <div class="desc">Indicadores fuertes o velocidad + regla.</div>
+        </div>
+        <div class="score-card critical">
+          <div class="range">≥ 25</div>
+          <div class="label">Crítico</div>
+          <div class="desc">≥2 reglas activadas o puntaje extremo.</div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span>Risk resolution logic (engine.ts)</span></div>
+        <pre><code><span class="kw">if</span> <span class="pu">(</span>score <span class="pu">&gt;=</span> <span class="num">25</span> <span class="pu">||</span> totalRules <span class="pu">&gt;=</span> <span class="num">2</span><span class="pu">)</span>                       <span class="kw">return</span> <span class="str">"CRITICAL"</span><span class="pu">;</span>
+<span class="kw">if</span> <span class="pu">(</span>score <span class="pu">&gt;=</span> <span class="num">20</span> <span class="pu">||</span> <span class="pu">(</span>velocityFlag <span class="pu">&amp;&amp;</span> totalRules <span class="pu">&gt;</span> <span class="num">0</span><span class="pu">))</span>   <span class="kw">return</span> <span class="str">"HIGH"</span><span class="pu">;</span>
+<span class="kw">if</span> <span class="pu">(</span>score <span class="pu">&gt;=</span> sessionThreshold<span class="pu">)</span>                         <span class="kw">return</span> <span class="str">"MEDIUM"</span><span class="pu">;</span>
+<span class="kw">return</span> <span class="str">"LOW"</span><span class="pu">;</span></code></pre>
+      </div>
+
+      <p>Donde <code>totalRules</code> = reglas MCR activadas (V3) + reglas de combinación (V4) + reglas de combinación (Normalizador).</p>
+    </section>
+
+    <!-- STAGES -->
+    <section class="doc-section" id="stages-detail">
+      <h2>Etapas de Reclutamiento</h2>
+      <p>Las etapas son asignadas por la API de Sentinel (análisis de Groq LLaMA) durante la escalada, o inferidas localmente a partir de los umbrales de puntuación para respuestas inmediatas.</p>
+
+      <div class="flow-steps">
+        <div class="flow-step"><div class="flow-step-line"><div class="flow-step-dot">1</div><div class="flow-step-connector"></div></div><div class="flow-step-body"><div class="flow-step-title">NINGUNA <span style="font-weight:400;color:var(--fg-subtle);font-size:11px;margin-left:6px">puntuación ≤ 11 (local)</span></div><div class="flow-step-desc">No hay señales de reclutamiento. La conversación es segura.</div></div></div>
+        <div class="flow-step"><div class="flow-step-line"><div class="flow-step-dot">2</div><div class="flow-step-connector"></div></div><div class="flow-step-body"><div class="flow-step-title">CAPTACIÓN <span style="font-weight:400;color:var(--fg-subtle);font-size:11px;margin-left:6px">puntuación &gt; 19 (local fallback)</span></div><div class="flow-step-desc">El perpetrador está estableciendo contacto inicial y construyendo una falsa confianza para atraer al menor.</div></div></div>
+        <div class="flow-step"><div class="flow-step-line"><div class="flow-step-dot">3</div><div class="flow-step-connector"></div></div><div class="flow-step-body"><div class="flow-step-title">INDUCCIÓN / COOPTACIÓN <span style="font-weight:400;color:var(--fg-subtle);font-size:11px;margin-left:6px">API</span></div><div class="flow-step-desc">El perpetrador está influenciando creencias o comportamientos, creando dependencia emocional.</div></div></div>
+        <div class="flow-step"><div class="flow-step-line"><div class="flow-step-dot">4</div><div class="flow-step-connector"></div></div><div class="flow-step-body"><div class="flow-step-title">INCUBACIÓN <span style="font-weight:400;color:var(--fg-subtle);font-size:11px;margin-left:6px">API</span></div><div class="flow-step-desc">Desensibilización gradual a contenido o peticiones inapropiadas.</div></div></div>
+        <div class="flow-step"><div class="flow-step-line"><div class="flow-step-dot">5</div><div class="flow-step-connector"></div></div><div class="flow-step-body"><div class="flow-step-title">UTILIZACIÓN / INSTRUMENTALIZACIÓN <span style="font-weight:400;color:var(--fg-subtle);font-size:11px;margin-left:6px">puntuación &gt; 24 (local fallback)</span></div><div class="flow-step-desc">Explotación activa. Mayor severidad — dispara la recomendación <code>HARD_BLOCK</code>.</div></div></div>
+      </div>
+    </section>
+
+    <!-- UX RECOMMENDATIONS -->
+    <section class="doc-section" id="ux-recommendations">
+      <h2>Recomendaciones UX</h2>
+      <p>El campo <code>ux_recommendation</code> le dice a su aplicación exactamente qué acción de UI tomar. La escala es proporcional: evite alarmar a los usuarios innecesariamente sin dejar de protegerlos.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Valor</th><th>Riesgo</th><th>Intrusividad</th><th>Qué hacer</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="ux-badge">NONE</span></td>
+              <td><span class="risk-badge risk-LOW"><span class="risk-dot dot-LOW"></span>NINGUNO</span></td>
+              <td>Ninguna</td>
+              <td>Proceda con normalidad.</td>
+            </tr>
+            <tr>
+              <td><span class="ux-badge">SOFT_NUDGE</span></td>
+              <td><span class="risk-badge risk-MEDIUM"><span class="risk-dot dot-MEDIUM"></span>MEDIUM</span></td>
+              <td>Baja</td>
+              <td>Tarjeta de seguridad pasiva en el chat con un enlace de ayuda. No interrumpa el flujo de mensajes.</td>
+            </tr>
+            <tr>
+              <td><span class="ux-badge">WARNING_OVERLAY</span></td>
+              <td><span class="risk-badge risk-MEDIUM"><span class="risk-dot dot-MEDIUM"></span>MEDIUM</span></td>
+              <td>Medio</td>
+              <td>Modal que se puede cerrar. Incluya una opción "Estoy bien". Registre todas las dismissals.</td>
+            </tr>
+            <tr>
+              <td><span class="ux-badge">SOFT_BLOCK</span></td>
+              <td><span class="risk-badge risk-HIGH"><span class="risk-dot dot-HIGH"></span>HIGH</span></td>
+              <td>Alta</td>
+              <td>Bloquea el envío hasta que el usuario reconozca la indicación o se comunique con un tutor.</td>
+            </tr>
+            <tr>
+              <td><span class="ux-badge">HARD_BLOCK</span></td>
+              <td><span class="risk-badge risk-CRITICAL"><span class="risk-dot dot-CRITICAL"></span>CRITICAL</span></td>
+              <td>Total</td>
+              <td>Termina la sesión inmediatamente. Notifica al tutor. Marca para revisión humana. No se permite la dismisión.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ERROR HANDLING -->
+    <section class="doc-section" id="error-handling">
+      <h2>Manejo de Errores</h2>
+      <p>El SDK utiliza el patrón Result en todas partes. Nunca lanza excepciones, nunca rechaza promesas inesperadamente. Todos los errores aparecen a través del campo <code>error</code>.</p>
+      <div class="code-block">
+        <div class="code-block-header"><span>Ejemplo completo</span><button class="copy-btn" logoonclick="copyCode(this)">Copy</button></div>
+        <pre><code><span class="kw">import</span> { <span class="ty">Sentinel</span> } <span class="kw">from</span> <span class="str">"@sentinel-sdk/typescript"</span><span class="pu">;</span>
+
+<span class="kw">const</span> sentinel <span class="pu">=</span> <span class="kw">new</span> <span class="ty">Sentinel</span><span class="pu">({</span> apiKey<span class="pu">:</span> process<span class="pu">.</span>env<span class="pu">.</span><span class="ty">SENTINEL_API_KEY</span><span class="pu">! });</span>
+
+<span class="kw">const</span> <span class="pu">{</span> data<span class="pu">,</span> error <span class="pu">} =</span> <span class="kw">await</span> sentinel<span class="pu">.</span><span class="fn">analyze</span><span class="pu">(</span>text<span class="pu">,</span> sessionId<span class="pu">,</span> userId<span class="pu">);</span>
+
+<span class="kw">if</span> <span class="pu">(</span>error<span class="pu">) {</span>
+  <span class="kw">switch</span> <span class="pu">(</span>error<span class="pu">.</span>code<span class="pu">) {</span>
+    <span class="kw">case</span> <span class="str">"VALIDATION_ERROR"</span><span class="pu">:</span>
+      console<span class="pu">.</span><span class="fn">warn</span><span class="pu">(</span><span class="str">"Missing parameters:"</span><span class="pu">,</span> error<span class="pu">.</span>message<span class="pu">);</span>
+      <span class="kw">break</span><span class="pu">;</span>
+    <span class="kw">case</span> <span class="str">"API_ERROR"</span><span class="pu">:</span>
+      console<span class="pu">.</span><span class="fn">error</span><span class="pu">(</span><span class="str">`API returned ${error.statusCode}`</span><span class="pu">);</span>
+      <span class="kw">break</span><span class="pu">;</span>
+    <span class="kw">default</span><span class="pu">:</span>
+      console<span class="pu">.</span><span class="fn">error</span><span class="pu">(</span>error<span class="pu">.</span>message<span class="pu">);</span>
+  <span class="pu">}</span>
+  <span class="kw">return</span><span class="pu">;</span>
+<span class="pu">}</span>
+
+<span class="cm">// data is fully typed and guaranteed here</span>
+console<span class="pu">.</span><span class="fn">log</span><span class="pu">(</span>data<span class="pu">.</span>ux_recommendation<span class="pu">);</span></code></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>
