@@ -14,12 +14,11 @@ def analyze(escalation: EscalationRequest):
             "success": True,
             "status_code": 200,
             "data": {
-                "score": result.get("score"),
-                "risk": result.get("risk"),
-                "stage": result.get("stage"),
-                "categories": result.get("categories"),
-                "termsFound": result.get("termsFound"),
                 "ux_recommendation": result.get("ux_recommendation"),
+                "stage": result.get("stage"),
+                "confidence": result.get("confidence"),
+                "summary": result.get("summary"),
+                "false_positive": result.get("false_positive"),
             },
         },
     )
