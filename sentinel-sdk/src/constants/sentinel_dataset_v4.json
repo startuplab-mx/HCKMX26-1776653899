@@ -429,6 +429,37 @@
       "te toca",
       "es obligatorio",
       "no tienes opcion"
+    ],
+    "encrypted_platforms": [
+      "whatsapp",
+      "whats",
+      "wa",
+      "telegram",
+      "tele",
+      "tg",
+      "signal",
+      "discord",
+      "insta",
+      "messenger",
+      "ig"
+    ],
+    "platform_verbs": [
+      "pasa",
+      "pasame",
+      "manda",
+      "mandame",
+      "agrega",
+      "agregame",
+      "pasate",
+      "abre",
+      "tienes",
+      "descarga",
+      "vete",
+      "mejor",
+      "hablemos",
+      "hablamos",
+      "escribeme",
+      "mensajeame"
     ]
   },
   "features": [
@@ -533,6 +564,16 @@
       "description": "Lenguaje coercitivo o amenaza condicional.",
       "derived_from": [
         "coercion_words"
+      ]
+    },
+    {
+      "id": "F012",
+      "name": "platform_redirection",
+      "weight": 4,
+      "description": "Intento de mover la conversación a una plataforma encriptada no monitoreada (WhatsApp, Telegram, etc).",
+      "derived_from": [
+        "encrypted_platforms",
+        "platform_verbs"
       ]
     }
   ],
@@ -668,6 +709,16 @@
       "bonus_score": 15,
       "action": "ESCALATE",
       "description": "Glorificación o amenaza explícita del crimen organizado."
+    },
+    {
+      "id": "CR-013",
+      "name": "Redirección a Plataforma Segura + Riesgo Base",
+      "features_required": [
+        "platform_redirection"
+      ],
+      "bonus_score": 10,
+      "action": "MAYBE",
+      "description": "Pedir WhatsApp, Telegram, Signal. Escalación preventiva para checar contexto si la sesión ya es sospechosa."
     }
   ]
 }
